@@ -12,6 +12,11 @@
         output json file `output.json`
         output csv file `output.csv`
 
+## options
+
+run `npx json2csv -i output.json -o output.csv` convert json to csv format
+
+run `./index.js` to generate json file
 
 
 

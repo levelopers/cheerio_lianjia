@@ -11,7 +11,7 @@ async function run() {
         request.push(getData(_url))
     }
     Promise.all(request).then(res => {
-        console.log(res.length);
+        console.log(res.flat(1).length);
         writeFile(JSON.stringify(res.flat(1)))
     })
 }
@@ -29,7 +29,8 @@ async function getData(url) {
         const info = query(li, '.houseInfo')
         const totalPrice = query(li, '.totalPrice')
         const unitPrice = query(li, '.unitPrice')
-        _result.push({ title, address, info, totalPrice, unitPrice })
+        const totalSellCount = query(li, '.totalSellCount')
+        _result.push({ title, address, info, totalPrice,totalSellCount, unitPrice })
     }
     return _result
 }
