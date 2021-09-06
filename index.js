@@ -30,6 +30,7 @@ async function run() {
     for (let i = 0; i < xiaoqu.length; i++) {
         for (let j = 0; j < pageNumber; j++) {
             let _url = url + `${xiaoqu[i]}/pg${j + 1}cro21/`
+    await sleep(1000);
             request.push(getData(_url))
         }
     }
@@ -40,6 +41,10 @@ async function run() {
     })
 }
 run()
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 async function getData(url) {
     const _result = []
