@@ -2,16 +2,17 @@ const axios = require('axios')
 const fs = require('fs')
 var cheerio = require("cheerio")
 
-const url = 'https://bj.lianjia.com/ershoufang/'
-const pageNumber = 12
+const url = 'https://bj.lianjia.com/xiaoqu/'
+const pageNumber = 30
 async function run() {
     let result = []
     const request = []
     for (let i = 0; i < pageNumber; i++) {
-        let _url = url + `pg${i}rs%E5%AE%8B%E5%AE%B6%E5%BA%84/`
+        let _url = url + `pg${i}cro21/`
         request.push(getData(_url))
     }
     Promise.all(request).then(res => {
+        console.log(res.length);
         writeFile(JSON.stringify(res.flat(1)))
     })
 }
@@ -21,7 +22,7 @@ async function getData(url) {
     const _result = []
     const res = await axios.get(url)
     var $ = cheerio.load(res.data)
-    let list = $('#content ul.sellListContent li.LOGCLICKDATA')
+    let list = $('li.xiaoquListItem')
     for (let i = 0; i < list.length; i++) {
         var li = list.eq(i)
         const title = query(li, '.title a')
