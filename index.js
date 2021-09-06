@@ -5,10 +5,9 @@ var cheerio = require("cheerio")
 const url = 'https://bj.lianjia.com/xiaoqu/'
 const pageNumber = 30
 async function run() {
-    let result = []
     const request = []
     for (let i = 0; i < pageNumber; i++) {
-        let _url = url + `pg${i}cro21/`
+        let _url = url + `pg${i+1}cro21/`
         request.push(getData(_url))
     }
     Promise.all(request).then(res => {
