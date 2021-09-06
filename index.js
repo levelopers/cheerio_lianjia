@@ -4,12 +4,36 @@ var cheerio = require("cheerio")
 
 const url = 'https://bj.lianjia.com/xiaoqu/'
 const pageNumber = 30
+
+const xiaoqu = [
+    'dongcheng',
+    'xicheng',
+    'chaoyang',
+    'haidian',
+    'fengtai',
+    'shijingshan',
+    'tongzhou',
+    'changping',
+    'daxing',
+    'yizhuangkaifaqu',
+    'shunyi',
+    'fangshan',
+    'mentougou',
+    'pinggu',
+    'huairou',
+    'miyun',
+    'yanqing'
+]
+
 async function run() {
     const request = []
-    for (let i = 0; i < pageNumber; i++) {
-        let _url = url + `pg${i+1}cro21/`
-        request.push(getData(_url))
+    for (let i = 0; i < xiaoqu.length; i++) {
+        for (let j = 0; j < pageNumber; j++) {
+            let _url = url + `${xiaoqu[i]}/pg${j + 1}cro21/`
+            request.push(getData(_url))
+        }
     }
+
     Promise.all(request).then(res => {
         console.log(res.flat(1).length);
         writeFile(JSON.stringify(res.flat(1)))
@@ -30,7 +54,7 @@ async function getData(url) {
         const totalPrice = query(li, '.totalPrice')
         const unitPrice = query(li, '.unitPrice')
         const totalSellCount = query(li, '.totalSellCount')
-        _result.push({ title, address, info, totalPrice,totalSellCount, unitPrice })
+        _result.push({ title, address, info, totalPrice, totalSellCount, unitPrice })
     }
     return _result
 }
