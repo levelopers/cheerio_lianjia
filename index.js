@@ -3,7 +3,7 @@ const fs = require('fs')
 var cheerio = require("cheerio")
 
 const url = 'https://bj.lianjia.com/xiaoqu/'
-const pageNumber = 30
+const pageNumber = 40
 
 const xiaoqu = [
     'dongcheng',
@@ -30,7 +30,7 @@ async function run() {
     for (let i = 0; i < xiaoqu.length; i++) {
         for (let j = 0; j < pageNumber; j++) {
             let _url = url + `${xiaoqu[i]}/pg${j + 1}cro21/`
-    await sleep(1000);
+            await sleep(3000);
             request.push(getData(_url))
         }
     }
@@ -44,7 +44,7 @@ run()
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
-  }
+}
 
 async function getData(url) {
     const _result = []
@@ -69,5 +69,5 @@ function query(node, q) {
 }
 
 function writeFile(data) {
-    fs.writeFileSync('./output.json', data)
+    fs.writeFileSync('./output1.json', data)
 }
